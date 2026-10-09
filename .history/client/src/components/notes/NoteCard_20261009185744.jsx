@@ -32,9 +32,9 @@ const NoteCard = ({ note, onEdit, onDelete, onTogglePin, onToggleFavorite, onTog
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400 truncate mb-1">
-  {note.title}
-</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate mb-1">
+            {note.title}
+          </h3>
           <div className="flex items-center space-x-2">
             <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getCategoryColor(note.category)}`}>
               {note.category}
