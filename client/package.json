@@ -1,0 +1,32 @@
+{
+  "name": "noteflow-client",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Frontend for NoteFlow - A modern note-taking application",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "notes",
+    "react",
+    "frontend"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.20.0",
+    "lucide-react": "^1.53.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.29",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.3.4"
+  }
+}
