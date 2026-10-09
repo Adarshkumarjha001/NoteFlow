@@ -127,7 +127,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           {/* Footer */}
           <div className="p-4 border-t-2 border-purple-300 dark:border-purple-800 bg-purple-100 dark:bg-purple-900/50">
             <p className="text-xs text-center text-purple-600 dark:text-purple-400">
-              © 2026 NoteFlow
+              © 2024 NoteFlow
             </p>
           </div>
         </div>

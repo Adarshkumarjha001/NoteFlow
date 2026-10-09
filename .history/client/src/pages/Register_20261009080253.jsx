@@ -268,7 +268,7 @@ const Register = () => {
 
         {/* Footer */}
         <p className="mt-8 text-center text-sm text-purple-100 drop-shadow">
-          © 2026 NoteFlow. Capture your ideas beautifully.
+          © 2024 NoteFlow. Capture your ideas beautifully.
         </p>
       </div>
     </div>

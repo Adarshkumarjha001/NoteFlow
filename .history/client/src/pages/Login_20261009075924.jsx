@@ -1,20 +1,17 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { User, Mail, Lock, Eye, EyeOff, UserPlus, NotebookPen } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, LogIn, NotebookPen } from 'lucide-react';
 
-const Register = () => {
+const Login = () => {
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -30,13 +27,8 @@ const Register = () => {
     e.preventDefault();
     setError('');
 
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+    if (!formData.email || !formData.password) {
       setError('Please fill in all fields');
-      return;
-    }
-
-    if (formData.name.length < 2) {
-      setError('Name must be at least 2 characters');
       return;
     }
 
@@ -45,20 +37,10 @@ const Register = () => {
       return;
     }
 
-    if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters');
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-
     setLoading(true);
 
     try {
-      const result = await register(formData.name, formData.email, formData.password);
+      const result = await login(formData.email, formData.password);
       
       if (result.success) {
         navigate('/');
@@ -73,62 +55,36 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-600 via-purple-500 to-indigo-800 dark:from-purple-950 dark:via-pink-900 dark:to-gray-900 px-4 py-12 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-purple-800 dark:from-purple-950 dark:via-purple-900 dark:to-gray-900 px-4 py-12 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-pink-400 dark:bg-pink-900 rounded-full opacity-20 blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-purple-400 dark:bg-purple-900 rounded-full opacity-20 blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+        <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-purple-400 dark:bg-purple-900 rounded-full opacity-20 blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-pink-400 dark:bg-pink-900 rounded-full opacity-20 blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
       <div className="max-w-md w-full relative z-10">
         {/* Logo and Title */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-pink-500 to-purple-500 rounded-3xl mb-4 shadow-2xl transform hover:scale-105 transition-transform">
-            <NotebookPen className="w-10 h-10 text-white" />
-          </div>
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl mb-4 shadow-2xl transform hover:scale-105 transition-transform">
+  <NotebookPen className="w-10 h-10 text-white" />
+                 </div>
           <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">
-            Join NoteFlow
+            Welcome Back
           </h1>
           <p className="text-purple-100 text-lg">
-            Start organizing your thoughts beautifully
+            Sign in to continue your journey
           </p>
         </div>
 
-        {/* Register Form */}
+        {/* Login Form */}
         <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-purple-200 dark:border-purple-800">
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Error Message */}
             {error && (
               <div className="bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg text-sm animate-shake">
                 <p className="font-medium">{error}</p>
               </div>
             )}
-
-            {/* Name Field */}
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-              >
-                Full Name
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-purple-500" />
-                </div>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all placeholder:text-gray-400"
-                  placeholder="John Doe"
-                  disabled={loading}
-                />
-              </div>
-            </div>
 
             {/* Email Field */}
             <div>
@@ -172,11 +128,11 @@ const Register = () => {
                   id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
-                  autoComplete="new-password"
+                  autoComplete="current-password"
                   value={formData.password}
                   onChange={handleChange}
                   className="w-full pl-12 pr-12 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all placeholder:text-gray-400"
-                  placeholder="At least 6 characters"
+                  placeholder="Enter your password"
                   disabled={loading}
                 />
                 <button
@@ -194,73 +150,35 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Confirm Password Field */}
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-              >
-                Confirm Password
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-purple-500" />
-                </div>
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  autoComplete="new-password"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="w-full pl-12 pr-12 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all placeholder:text-gray-400"
-                  placeholder="Confirm your password"
-                  disabled={loading}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center"
-                  disabled={loading}
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-purple-500 transition-colors" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400 hover:text-purple-500 transition-colors" />
-                  )}
-                </button>
-              </div>
-            </div>
-
             {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold py-3 rounded-xl flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] mt-6"
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 rounded-xl flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]"
             >
               {loading ? (
                 <>
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  <span>Creating account...</span>
+                  <span>Signing in...</span>
                 </>
               ) : (
                 <>
-                  <UserPlus className="h-5 w-5" />
-                  <span>Create Account</span>
+                  <LogIn className="h-5 w-5" />
+                  <span>Sign In</span>
                 </>
               )}
             </button>
           </form>
 
-          {/* Login Link */}
+          {/* Register Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Already have an account?{' '}
+              Don't have an account?{' '}
               <Link
-                to="/login"
+                to="/register"
                 className="font-semibold text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 transition-colors"
               >
-                Sign in instead →
+                Create one now →
               </Link>
             </p>
           </div>
@@ -275,4 +193,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

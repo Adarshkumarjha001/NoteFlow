@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { User, Mail, Lock, Eye, EyeOff, UserPlus, NotebookPen } from 'lucide-react';
+import { User, Mail, Lock, Eye, EyeOff, UserPlus, Sparkles } from 'lucide-react';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -84,7 +84,7 @@ const Register = () => {
         {/* Logo and Title */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-pink-500 to-purple-500 rounded-3xl mb-4 shadow-2xl transform hover:scale-105 transition-transform">
-            <NotebookPen className="w-10 h-10 text-white" />
+            <Sparkles className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">
             Join NoteFlow
@@ -268,7 +268,7 @@ const Register = () => {
 
         {/* Footer */}
         <p className="mt-8 text-center text-sm text-purple-100 drop-shadow">
-          © 2026 NoteFlow. Capture your ideas beautifully.
+          © 2024 NoteFlow. Capture your ideas beautifully.
         </p>
       </div>
     </div>
