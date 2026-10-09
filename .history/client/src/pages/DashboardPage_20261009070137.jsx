@@ -63,52 +63,20 @@ const DashboardPage = () => {
   };
 
   // Search functionality
-  // useEffect(() => {
-  //   if (searchQuery.trim()) {
-  //     const query = searchQuery.toLowerCase();
-  //     const filtered = notes.filter(
-  //       (note) =>
-  //         note.title.toLowerCase().includes(query) ||
-  //         note.content.toLowerCase().includes(query) ||
-  //         note.tags.some((tag) => tag.toLowerCase().includes(query))
-  //     );
-  //     setFilteredNotes(filtered);
-  //   } else {
-  //     setFilteredNotes(notes);
-  //   }
-  // }, [searchQuery, notes]);
-
-  
-useEffect(() => {
-  const path = location.pathname;
-
-  // Keep archived notes out of All Notes, Pinned,
-  // Favorites and Category views.
-  let visibleNotes = notes;
-
-  if (path !== '/archived') {
-    visibleNotes = visibleNotes.filter(
-      (note) => !note.isArchived
-    );
-  }
-
-  // Apply search to the notes visible on this page.
-  if (searchQuery.trim()) {
-    const query = searchQuery.toLowerCase();
-
-    visibleNotes = visibleNotes.filter(
-      (note) =>
-        note.title.toLowerCase().includes(query) ||
-        note.content.toLowerCase().includes(query) ||
-        (note.tags || []).some((tag) =>
-          tag.toLowerCase().includes(query)
-        )
-    );
-  }
-
-  setFilteredNotes(visibleNotes);
-}, [searchQuery, notes, location.pathname]);
-
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      const filtered = notes.filter(
+        (note) =>
+          note.title.toLowerCase().includes(query) ||
+          note.content.toLowerCase().includes(query) ||
+          note.tags.some((tag) => tag.toLowerCase().includes(query))
+      );
+      setFilteredNotes(filtered);
+    } else {
+      setFilteredNotes(notes);
+    }
+  }, [searchQuery, notes]);
 
   // Calculate stats
   const stats = {
